@@ -83,9 +83,10 @@
             const startTimeInput = document.createElement("input");
             startTimeInput.type = "time";
             startTimeInput.name = "start_time";
+            startTimeInput.required = true;
             startTimeInput.min = "09:00";
             startTimeInput.max = "18:00";
-            startTimeInput.required = true;
+            startTimeInput.value = "09:00"; // デフォルト値
 
             const startTimeLabel = document.createElement("label");
             startTimeLabel.innerText = "開始時間: ";
@@ -94,9 +95,10 @@
             const endTimeInput = document.createElement("input");
             endTimeInput.type = "time";
             endTimeInput.name = "end_time";
+            endTimeInput.required = true;
             endTimeInput.min = "09:00";
             endTimeInput.max = "18:00";
-            endTimeInput.required = true;
+            endTimeInput.value = "18:00"; // デフォルト値
 
             const endTimeLabel = document.createElement("label");
             endTimeLabel.innerText = "終了時間: ";
@@ -111,6 +113,31 @@
             newInputGroup.appendChild(endTimeInput);
 
             document.getElementById("input-fields").appendChild(newInputGroup);
+
+            // 30分刻みで12:00を除外する
+            filterTimeOptions(startTimeInput);
+            filterTimeOptions(endTimeInput);
+        }
+
+        function filterTimeOptions(input) {
+            const options = [];
+            for (let hour = 9; hour <= 18; hour++) {
+                const times = [`${hour}:00`, `${hour}:30`];
+                times.forEach(time => {
+                    if (time !== '12:00') { // 12:00を除外
+                        options.push(time);
+                    }
+                });
+            }
+            input.setAttribute('list', 'time-options');
+            const datalist = document.createElement('datalist');
+            datalist.id = 'time-options';
+            options.forEach(time => {
+                const option = document.createElement('option');
+                option.value = time;
+                datalist.appendChild(option);
+            });
+            document.body.appendChild(datalist);
         }
     </script>
 </head>
