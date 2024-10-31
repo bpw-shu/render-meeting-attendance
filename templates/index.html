@@ -25,16 +25,24 @@
             white-space: nowrap; /* 改行を防ぐ */
         }
 
-        input[type="date"], select {
+        input[type="date"], input[type="time"] {
             width: 100px; /* 幅を小さく設定 */
-            margin-right: 10px; /* 入力ボックス間のスペースを追加 */
+        }
+
+        select {
+            max-width: 150px; /* 名前選択ドロップダウンの最大幅を設定 */
+        }
+
+        input, select, button {
+            flex: 1; 
+            min-width: 100px; /* 幅を調整 */
         }
 
         .time-group {
             display: flex;
             align-items: center;
-            flex-wrap: wrap; /* 要素を折り返す */
-            margin-bottom: 10px; /* 各時間グループの間隔を追加 */
+            flex: 1;
+            min-width: 100px; /* 幅を調整 */
         }
 
         button {
@@ -72,50 +80,64 @@
             dateLabel.innerText = "日付: ";
             dateLabel.htmlFor = dateInput.id = `date-${Date.now()}`;
 
-            const startTimeSelect = document.createElement("select");
-            startTimeSelect.name = "start_time";
-            startTimeSelect.required = true;
-
-            const endTimeSelect = document.createElement("select");
-            endTimeSelect.name = "end_time";
-            endTimeSelect.required = true;
-
-            // 30分刻みのオプションを追加
-            const times = [
-                "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-                "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
-                "16:00", "16:30", "17:00", "17:30", "18:00"
-            ];
-
-            times.forEach(time => {
-                const startOption = document.createElement("option");
-                startOption.value = time;
-                startOption.textContent = time;
-                startTimeSelect.appendChild(startOption);
-
-                const endOption = document.createElement("option");
-                endOption.value = time;
-                endOption.textContent = time;
-                endTimeSelect.appendChild(endOption);
-            });
+            const startTimeInput = document.createElement("input");
+            startTimeInput.type = "time";
+            startTimeInput.name = "start_time";
+            startTimeInput.required = true;
+            startTimeInput.min = "09:00";
+            startTimeInput.max = "18:00";
+            startTimeInput.value = "09:00"; // デフォルト値
 
             const startTimeLabel = document.createElement("label");
             startTimeLabel.innerText = "開始時間: ";
-            startTimeLabel.htmlFor = startTimeSelect.id = `start-time-${Date.now()}`;
+            startTimeLabel.htmlFor = startTimeInput.id = `start-time-${Date.now()}`;
+
+            const endTimeInput = document.createElement("input");
+            endTimeInput.type = "time";
+            endTimeInput.name = "end_time";
+            endTimeInput.required = true;
+            endTimeInput.min = "09:00";
+            endTimeInput.max = "18:00";
+            endTimeInput.value = "18:00"; // デフォルト値
 
             const endTimeLabel = document.createElement("label");
             endTimeLabel.innerText = "終了時間: ";
-            endTimeLabel.htmlFor = endTimeSelect.id = `end-time-${Date.now()}`;
+            endTimeLabel.htmlFor = endTimeInput.id = `end-time-${Date.now()}`;
 
             // ラッパーに要素を追加
             newInputGroup.appendChild(dateLabel);
             newInputGroup.appendChild(dateInput);
             newInputGroup.appendChild(startTimeLabel);
-            newInputGroup.appendChild(startTimeSelect);
+            newInputGroup.appendChild(startTimeInput);
             newInputGroup.appendChild(endTimeLabel);
-            newInputGroup.appendChild(endTimeSelect);
+            newInputGroup.appendChild(endTimeInput);
 
             document.getElementById("input-fields").appendChild(newInputGroup);
+
+            // 30分刻みで12:00を除外する
+            filterTimeOptions(startTimeInput);
+            filterTimeOptions(endTimeInput);
+        }
+
+        function filterTimeOptions(input) {
+            const options = [];
+            for (let hour = 9; hour <= 18; hour++) {
+                const times = [`${hour}:00`, `${hour}:30`];
+                times.forEach(time => {
+                    if (time !== '12:00') { // 12:00を除外
+                        options.push(time);
+                    }
+                });
+            }
+            input.setAttribute('list', 'time-options');
+            const datalist = document.createElement('datalist');
+            datalist.id = 'time-options';
+            options.forEach(time => {
+                const option = document.createElement('option');
+                option.value = time;
+                datalist.appendChild(option);
+            });
+            document.body.appendChild(datalist);
         }
     </script>
 </head>
@@ -141,49 +163,13 @@
         <div id="input-fields">
             <div class="time-group">
                 <label for="date-0">日付:</label>
-                <input type="date" name="date" id="date-0" required>
+                <input type="date" name="date" id="date-0" required style="width: 100px;">
 
                 <label for="start-time-0">開始時間:</label>
-                <select name="start_time" id="start-time-0" required>
-                    <option value="09:00">09:00</option>
-                    <option value="09:30">09:30</option>
-                    <option value="10:00">10:00</option>
-                    <option value="10:30">10:30</option>
-                    <option value="11:00">11:00</option>
-                    <option value="11:30">11:30</option>
-                    <option value="13:00">13:00</option>
-                    <option value="13:30">13:30</option>
-                    <option value="14:00">14:00</option>
-                    <option value="14:30">14:30</option>
-                    <option value="15:00">15:00</option>
-                    <option value="15:30">15:30</option>
-                    <option value="16:00">16:00</option>
-                    <option value="16:30">16:30</option>
-                    <option value="17:00">17:00</option>
-                    <option value="17:30">17:30</option>
-                    <option value="18:00">18:00</option>
-                </select>
+                <input type="time" name="start_time" id="start-time-0" step="1800" min="09:00" max="18:00" value="09:00" required>
 
                 <label for="end-time-0">終了時間:</label>
-                <select name="end_time" id="end-time-0" required>
-                    <option value="09:00">09:00</option>
-                    <option value="09:30">09:30</option>
-                    <option value="10:00">10:00</option>
-                    <option value="10:30">10:30</option>
-                    <option value="11:00">11:00</option>
-                    <option value="11:30">11:30</option>
-                    <option value="13:00">13:00</option>
-                    <option value="13:30">13:30</option>
-                    <option value="14:00">14:00</option>
-                    <option value="14:30">14:30</option>
-                    <option value="15:00">15:00</option>
-                    <option value="15:30">15:30</option>
-                    <option value="16:00">16:00</option>
-                    <option value="16:30">16:30</option>
-                    <option value="17:00">17:00</option>
-                    <option value="17:30">17:30</option>
-                    <option value="18:00">18:00</option>
-                </select>
+                <input type="time" name="end_time" id="end-time-0" step="1800" min="09:00" max="18:00" value="18:00" required>
             </div>
         </div>
         <button type="button" onclick="addInputFields()">他の日時も追加</button>
