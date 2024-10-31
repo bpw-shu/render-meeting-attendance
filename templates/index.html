@@ -21,13 +21,12 @@
         }
 
         label {
-            margin-right: 10px; 
-            flex-basis: auto; /* ラベルの幅を調整 */
+            margin-right: 5px; /* ラベルとのスペースを調整 */
             white-space: nowrap; /* 改行を防ぐ */
         }
 
         input[type="date"], input[type="time"] {
-            width: 120px; /* 日付と時間入力の幅を統一 */
+            width: 100px; /* 幅を小さく設定 */
         }
 
         select {
@@ -36,7 +35,7 @@
 
         input, select, button {
             flex: 1; 
-            min-width: 120px; 
+            min-width: 100px; /* 幅を調整 */
         }
 
         .time-group {
@@ -75,7 +74,7 @@
             dateInput.type = "date";
             dateInput.name = "date";
             dateInput.required = true;
-            dateInput.style.width = "120px"; // 幅を統一
+            dateInput.style.width = "100px"; // 幅を統一
 
             const dateLabel = document.createElement("label");
             dateLabel.innerText = "日付: ";
@@ -143,7 +142,7 @@
         <div id="input-fields">
             <div class="input-group">
                 <label for="date-0">日付:</label>
-                <input type="date" name="date" id="date-0" required style="width: 120px;">
+                <input type="date" name="date" id="date-0" required style="width: 100px;">
 
                 <div class="time-group">
                     <label for="start-time-0">開始時間:</label>
