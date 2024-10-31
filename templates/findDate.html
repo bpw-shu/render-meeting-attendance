@@ -47,6 +47,7 @@
             margin: 10px 5px 5px;
             display: flex; 
             align-items: center; 
+            text-align: center; /* 中央寄せ */
         }
 
         input[type="date"] {
@@ -89,10 +90,9 @@
             color: blue;
         }
 
-        
         @media (max-width: 600px) {
             form {
-                flex-direction: row; 
+                flex-direction: column; /* 縦並びに変更 */
                 align-items: center; 
                 flex-wrap: wrap; 
             }
@@ -134,8 +134,8 @@
             {% endfor %}
         {% endif %}
     </ul>
-    <p>登録済みの時間帯を削除</p>
-    <form method="POST" action="/deleteDate" style="display:inline;" onsubmit="return confirmDelete();">
+    <p style="text-align: center;">登録済みの時間帯を削除</p>
+    <form method="POST" action="/deleteDate" style="display:inline; text-align: center;" onsubmit="return confirmDelete();">
         <button type="submit">削除</button>
     </form>
     <script>
@@ -143,6 +143,6 @@
             return confirm("すべての登録済みユーザーの時間帯を削除します。この操作は元に戻せません。");
         }
     </script>
-    <a href="/">戻る</a>
+    <a href="/" style="text-align: center; display: block; margin-top: 20px;">戻る</a>
 </body>
 </html>
