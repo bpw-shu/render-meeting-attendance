@@ -17,8 +17,9 @@ def index():
         results = []
 
         # ユーザーごとにファイルを書き込む
-        file_path1 = f'./usersData/{userName}.txt'
-        file_path2 = f'./data.txt'
+        base_dir = os.path.abspath(os.path.dirname(__file__))
+        file_path1 = os.path.join(base_dir, 'usersData', f'{userName}.txt')
+        file_path2 = os.path.join(base_dir, 'data.txt')
         with open(file_path1, 'a', encoding='UTF-8') as f:
             # data.txtにも書き込む 算出用
             with open(file_path2, 'a', encoding='utf-8') as b:
@@ -33,7 +34,9 @@ def index():
 @app.route('/findDate', methods=['GET', 'POST'])
 def findDate():
     # 投稿者を特定
-    folderPath = './usersData/'
+    base_dir = os.path.abspath(os.path.dirname(__file__))
+    folderPath = os.path.join(base_dir, 'usersData')
+    
     userData = []
     for usersFile in os.listdir(folderPath):
         if usersFile.endswith('.txt'):
@@ -43,7 +46,7 @@ def findDate():
                 userData.append(usersFile[:-4])
 
     if request.method == 'POST':
-        filePath = f'./data.txt'
+        filePath = os.path.join(base_dir, 'data.txt')
         # data.txtを全て読み込む
         ng_data = []
         with open(filePath, 'r', encoding='utf-8') as base:
