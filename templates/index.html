@@ -140,17 +140,15 @@
             </select> さん
         </div>
         <div id="input-fields">
-            <div class="input-group">
+            <div class="time-group">
                 <label for="date-0">日付:</label>
                 <input type="date" name="date" id="date-0" required style="width: 100px;">
 
-                <div class="time-group">
-                    <label for="start-time-0">開始時間:</label>
-                    <input type="time" name="start_time" id="start-time-0" min="09:00" max="18:00" required>
+                <label for="start-time-0">開始時間:</label>
+                <input type="time" name="start_time" id="start-time-0" min="09:00" max="18:00" required>
 
-                    <label for="end-time-0">終了時間:</label>
-                    <input type="time" name="end_time" id="end-time-0" min="09:00" max="18:00" required>
-                </div>
+                <label for="end-time-0">終了時間:</label>
+                <input type="time" name="end_time" id="end-time-0" min="09:00" max="18:00" required>
             </div>
         </div>
         <button type="button" onclick="addInputFields()">他の日時も追加</button>

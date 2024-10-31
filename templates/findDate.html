@@ -53,8 +53,8 @@
         input[type="date"] {
             padding: 10px;
             margin: 5px;
-            width: 70%;
-            max-width: 80px; 
+            width: 100%;
+            max-width: 150px; 
             box-sizing: border-box;
         }
 
@@ -123,10 +123,15 @@
     <h1>時間帯の算出</h1>
     <div class="marquee">
         <div class="marquee-content">
-            NG時間投稿済み:{% for user in userData %}
-                <span>{{ user }}</span>
-                &nbsp;|&nbsp; <!-- 区切り線 -->
-            {% endfor %}
+            {% if userData %}
+                NG時間投稿済み:
+                {% for user in userData %}
+                    <span>{{ user }}</span>
+                    &nbsp;|&nbsp; <!-- 区切り線 -->
+                {% endfor %}
+            {% else %}
+                <p>投稿されたNG時間はありません。</p>
+            {% endif %}
         </div>
     </div>
     <form method="POST">
