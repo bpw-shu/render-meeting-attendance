@@ -18,7 +18,7 @@ def index():
 
         # ユーザーごとにファイルを書き込む
         base_dir = os.path.abspath(os.path.dirname(__file__))
-        file_path1 = os.path.join(base_dir, 'usersData', f'{userName}.txt')
+        file_path1 = os.path.join(base_dir, 'usersDate', f'{userName}.txt')
         file_path2 = os.path.join(base_dir, 'data.txt')
         with open(file_path1, 'a', encoding='UTF-8') as f:
             # data.txtにも書き込む 算出用
@@ -35,7 +35,7 @@ def index():
 def findDate():
     # 投稿者を特定
     base_dir = os.path.abspath(os.path.dirname(__file__))
-    folderPath = os.path.join(base_dir, 'usersData')
+    folderPath = os.path.join(base_dir, 'usersDate')
     
     userData = []
     for usersFile in os.listdir(folderPath):
