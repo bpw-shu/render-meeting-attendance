@@ -115,7 +115,7 @@ def delete_all_user_data():
     if os.path.exists(data_file_path):
         os.remove(data_file_path)
 
-    return redirect('/findDate')
+    return render_template('findDate.html')
 
 
 if __name__ == '__main__':
