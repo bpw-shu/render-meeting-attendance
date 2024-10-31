@@ -52,9 +52,13 @@ def findDate():
         files = [f for f in os.listdir(folderPath) if os.path.isfile(os.path.join(folderPath, f))]
 
         if not files:
-            return render_template('index.html')
+            return render_template('findDate.html', userData=userData, error="ユーザーデータがありません。")
 
         filePath = os.path.join(base_dir, 'data.txt')
+        # data.txtが存在しない場合
+        if not os.path.exists(filePath):
+            return render_template('findDate.html', userData=userData, error="データファイルがありません。")
+
         # data.txtを全て読み込む
         ng_data = []
         with open(filePath, 'r', encoding='utf-8') as base:

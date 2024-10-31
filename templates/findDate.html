@@ -132,6 +132,9 @@
             {% endif %}
         </div>
     </div>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
     <form method="POST">
         <label for="start">会議予定期日</label>
         <input type="date" name="start" id="start" required>
