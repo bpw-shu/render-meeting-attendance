@@ -1,133 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>NG入力フォーム</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px; 
-            max-width: 800px; 
-            margin: auto; 
-            background-color: #f4f4f4;
-        }
-
-        .input-group {
-            margin-bottom: 15px; 
-            display: flex; 
-            flex-wrap: wrap; 
-            align-items: center; 
-        }
-
-        label {
-            margin-right: 10px; 
-            flex-basis: 100%; 
-        }
-
-        input, select, button {
-            flex: 1; 
-            min-width: 120px; 
-        }
-
-        button {
-            margin-top: 10px; 
-        }
-
-        @media (max-width: 600px) {
-            .input-group {
-                flex-direction: column; 
-                align-items: flex-start; 
-            }
-
-            label {
-                margin-right: 0; 
-                margin-bottom: 5px; 
-            }
-
-            button {
-                width: 100%; 
-            }
-        }
-    </style>
-    <script>
-        function addInputFields() {
-            const newInputGroup = document.createElement("div");
-            newInputGroup.className = "input-group";
-
-            const dateInput = document.createElement("input");
-            dateInput.type = "date";
-            dateInput.name = "date";
-            dateInput.required = true;
-
-            const startTimeInput = document.createElement("input");
-            startTimeInput.type = "time";
-            startTimeInput.name = "start_time";
-            startTimeInput.min = "09:00";
-            startTimeInput.max = "18:00";
-            startTimeInput.required = true;
-
-            const endTimeInput = document.createElement("input");
-            endTimeInput.type = "time";
-            endTimeInput.name = "end_time";
-            endTimeInput.min = "09:00";
-            endTimeInput.max = "18:00";
-            endTimeInput.required = true;
-
-            const dateLabel = document.createElement("label");
-            dateLabel.innerText = "日付: ";
-            dateLabel.htmlFor = dateInput.id = `date-${Date.now()}`;
-
-            const startTimeLabel = document.createElement("label");
-            startTimeLabel.innerText = " 開始時間: ";
-            startTimeLabel.htmlFor = startTimeInput.id = `start-time-${Date.now()}`;
-
-            const endTimeLabel = document.createElement("label");
-            endTimeLabel.innerText = " 終了時間: ";
-            endTimeLabel.htmlFor = endTimeInput.id = `end-time-${Date.now()}`;
-
-            newInputGroup.appendChild(dateLabel);
-            newInputGroup.appendChild(dateInput);
-            newInputGroup.appendChild(startTimeLabel);
-            newInputGroup.appendChild(startTimeInput);
-            newInputGroup.appendChild(endTimeLabel);
-            newInputGroup.appendChild(endTimeInput);
-
-            document.getElementById("input-fields").appendChild(newInputGroup);
-        }
-    </script>
-</head>
-<body>
-    <p>
-        <a href="/findDate">登録済みデータから算出</a>
-    </p>
-    <h1>会議参加不可能な日時を入力してください</h1>
-    <form method="POST">
-        <div class="input-group">
-            <label for="userName">入力者名:</label>
-            <select name="userName" id="userName" required>
-                <option value="丸山">丸山</option>
-                <option value="松本">松本</option>
-            </select>
-        </div>
-        <div id="input-fields">
-            <div class="input-group">
-                <label for="date-0">日付:</label>
-                <input type="date" name="date" id="date-0" required>
-
-                <label for="start-time-0">開始時間:</label>
-                <input type="time" name="start_time" id="start-time-0" min="09:00" max="18:00" required>
-
-                <label for="end-time-0">終了時間:</label>
-                <input type="time" name="end_time" id="end-time-0" min="09:00" max="18:00" required>
-            </div>
-        </div>
-        <button type="button" onclick="addInputFields()">他の日時も追加</button>
-        <button type="submit">送信</button>
-    </form>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -152,7 +22,12 @@
 
         label {
             margin-right: 10px; 
-            flex-basis: 100%; 
+            flex-basis: auto; /* ラベルの幅を調整 */
+            white-space: nowrap; /* 改行を防ぐ */
+        }
+
+        input[type="date"] {
+            width: 150px; /* 日付入力の幅を設定 */
         }
 
         input, select, button {
@@ -260,10 +135,10 @@
                 <input type="date" name="date" id="date-0" required>
 
                 <div class="time-group">
-                    <label for="start-time-0">開始時間:</label>
+                    <label for="start-time-0">開始時間: </label>
                     <input type="time" name="start_time" id="start-time-0" min="09:00" max="18:00" required>
 
-                    <label for="end-time-0">終了時間:</label>
+                    <label for="end-time-0">終了時間: </label>
                     <input type="time" name="end_time" id="end-time-0" min="09:00" max="18:00" required>
                 </div>
             </div>

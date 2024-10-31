@@ -117,5 +117,6 @@ def delete_all_user_data():
 
     return redirect('/findDate')
 
+
 if __name__ == '__main__':
     app.run(debug=True)
