@@ -89,17 +89,16 @@ def findDate():
         available_ranges = []
 
         # ng_times が空でない場合のみ算出を行う
-        if ng_times:
             # 現在の時間を設定
-            current_time = start_date
-            while current_time < end_date:
-                if (current_time.hour >= 9 and current_time.hour < 12) or (current_time.hour > 12 and current_time.hour < 18):
-                    if not any(start <= current_time < end for start, end in ng_times):
-                        if not available_ranges or available_ranges[-1][1] < current_time - timedelta(minutes=1):
-                            available_ranges.append([current_time, current_time])
-                        else:
-                            available_ranges[-1][1] = current_time
-                current_time += timedelta(minutes=1)
+        current_time = start_date
+        while current_time < end_date:
+            if (current_time.hour >= 9 and current_time.hour < 12) or (current_time.hour > 12 and current_time.hour < 18):
+                if not any(start <= current_time < end for start, end in ng_times):
+                    if not available_ranges or available_ranges[-1][1] < current_time - timedelta(minutes=1):
+                        available_ranges.append([current_time, current_time])
+                    else:
+                        available_ranges[-1][1] = current_time
+            current_time += timedelta(minutes=1)
 
         # 時間帯をフォーマットして色を設定
         formatted_ranges = []
