@@ -109,9 +109,6 @@
     </style>
 </head>
 <body>
-    <p>
-        <a href="/deleteDate">登録日時の削除</a>
-    </p>
     <h1>時間帯の算出</h1>
     <div class="marquee">
         <div class="marquee-content">
@@ -137,13 +134,13 @@
             {% endfor %}
         {% endif %}
     </ul>
-    <h2>登録済みの時間帯を削除</h2>
-    <form method="POST" action="/delete_all" style="display:inline;" onsubmit="return confirmDelete();">
+    <p>登録済みの時間帯を削除</p>
+    <form method="POST" action="/deleteDate" style="display:inline;" onsubmit="return confirmDelete();">
         <button type="submit">削除</button>
     </form>
     <script>
         function confirmDelete() {
-            return confirm("すべての登録済みユーザーの時間帯を削除します？この操作は元に戻せません。");
+            return confirm("すべての登録済みユーザーの時間帯を削除します。この操作は元に戻せません。");
         }
     </script>
     <a href="/">戻る</a>

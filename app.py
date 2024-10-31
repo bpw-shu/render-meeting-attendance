@@ -99,5 +99,23 @@ def findDate():
 
     return render_template('findDate.html', userData=userData)
 
+@app.route('/deleteDate', methods=['POST'])
+def delete_all_user_data():
+    base_dir = os.path.abspath(os.path.dirname(__file__))
+    folderPath = os.path.join(base_dir, 'usersDate')
+
+    # usersDateフォルダ内のすべてのファイルを削除
+    for file_name in os.listdir(folderPath):
+        file_path = os.path.join(folderPath, file_name)
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+
+    # data.txtも削除
+    data_file_path = os.path.join(base_dir, 'data.txt')
+    if os.path.exists(data_file_path):
+        os.remove(data_file_path)
+
+    return redirect('/findDate')
+
 if __name__ == '__main__':
     app.run(debug=True)
