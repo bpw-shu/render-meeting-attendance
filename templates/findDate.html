@@ -143,7 +143,9 @@
     </ul>
     <div class="delete-section">
         <p>登録済みの時間帯を削除</p>
-        <a href="/deleteDate" onclick="return confirmDelete();">登録済みデータ削除</a>
+        <form method="POST" action="/deleteDate" onsubmit="return confirmDelete();">
+            <button type="submit">登録済みデータ削除</button>
+        </form>
     </div>
     <script>
         function confirmDelete() {

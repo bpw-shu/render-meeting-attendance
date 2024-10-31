@@ -26,6 +26,9 @@
             white-space: nowrap; /* 改行を防ぐ */
         }
 
+        input[type="date"], input[type="time"] {
+            width: 120px; /* 日付と時間入力の幅を統一 */
+        }
 
         select {
             max-width: 150px; /* 名前選択ドロップダウンの最大幅を設定 */
@@ -72,6 +75,7 @@
             dateInput.type = "date";
             dateInput.name = "date";
             dateInput.required = true;
+            dateInput.style.width = "120px"; // 幅を統一
 
             const dateLabel = document.createElement("label");
             dateLabel.innerText = "日付: ";
@@ -134,18 +138,18 @@
                 <option value="浅尾">浅尾</option>
                 <option value="竹本">竹本</option>
                 <option value="仁田原">仁田原</option>
-            </select>さん
+            </select> さん
         </div>
         <div id="input-fields">
             <div class="input-group">
                 <label for="date-0">日付:</label>
-                <input type="date" name="date" id="date-0" required>
+                <input type="date" name="date" id="date-0" required style="width: 120px;">
 
                 <div class="time-group">
-                    <label for="start-time-0">  開始時間: </label>
+                    <label for="start-time-0">開始時間:</label>
                     <input type="time" name="start_time" id="start-time-0" min="09:00" max="18:00" required>
 
-                    <label for="end-time-0">  終了時間: </label>
+                    <label for="end-time-0">終了時間:</label>
                     <input type="time" name="end_time" id="end-time-0" min="09:00" max="18:00" required>
                 </div>
             </div>
