@@ -90,6 +90,13 @@
             color: blue;
         }
 
+        .delete-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 中央寄せ */
+            margin-top: 20px;
+        }
+
         @media (max-width: 600px) {
             form {
                 flex-direction: column; /* 縦並びに変更 */
@@ -134,15 +141,17 @@
             {% endfor %}
         {% endif %}
     </ul>
-    <p style="text-align: center;">登録済みの時間帯を削除</p>
-    <form method="POST" action="/deleteDate" style="display:inline; text-align: center;" onsubmit="return confirmDelete();">
-        <button type="submit">削除</button>
-    </form>
+    <div class="delete-section">
+        <p>登録済みの時間帯を削除</p>
+        <form method="POST" action="/deleteDate" onsubmit="return confirmDelete();">
+            <button type="submit">削除</button>
+        </form>
+    </div>
     <script>
         function confirmDelete() {
             return confirm("すべての登録済みユーザーの時間帯を削除します。この操作は元に戻せません。");
         }
     </script>
-    <a href="/" style="text-align: center; display: block; margin-top: 20px;">戻る</a>
+    <a href="/">戻る</a>
 </body>
 </html>
