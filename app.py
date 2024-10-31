@@ -51,10 +51,8 @@ def findDate():
         # フォルダ内のファイルを取得
         files = [f for f in os.listdir(folderPath) if os.path.isfile(os.path.join(folderPath, f))]
 
-        if files:
-            pass
-        else:
-            return render_template('findDate.html')
+        if not files:
+            return render_template('index.html')
 
         filePath = os.path.join(base_dir, 'data.txt')
         # data.txtを全て読み込む
