@@ -55,9 +55,6 @@ def findDate():
             return render_template('findDate.html', userData=userData, error="ユーザーデータがありません。")
 
         filePath = os.path.join(base_dir, 'data.txt')
-        # data.txtが存在しない場合
-        if not os.path.exists(filePath):
-            return render_template('findDate.html', userData=userData, error="データファイルがありません。")
 
         # data.txtを全て読み込む
         ng_data = []
