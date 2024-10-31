@@ -25,19 +25,16 @@
             white-space: nowrap; /* 改行を防ぐ */
         }
 
-        input[type="date"] {
+        input[type="date"], select {
             width: 100px; /* 幅を小さく設定 */
-        }
-
-        select {
-            max-width: 150px; /* 名前選択ドロップダウンの最大幅を設定 */
+            margin-right: 10px; /* 入力ボックス間のスペースを追加 */
         }
 
         .time-group {
             display: flex;
             align-items: center;
-            flex: 1;
-            min-width: 100px; /* 幅を調整 */
+            flex-wrap: wrap; /* 要素を折り返す */
+            margin-bottom: 10px; /* 各時間グループの間隔を追加 */
         }
 
         button {
@@ -144,10 +141,10 @@
         <div id="input-fields">
             <div class="time-group">
                 <label for="date-0">日付:</label>
-                <input type="date" name="date" id="date-0" required style="width: 100px;">
+                <input type="date" name="date" id="date-0" required>
 
-                <label for="start-time-0">    開始時間:</label>
-                <select name="start_time" id="start-time-0" value="09:00" required>
+                <label for="start-time-0">開始時間:</label>
+                <select name="start_time" id="start-time-0" required>
                     <option value="09:00">09:00</option>
                     <option value="09:30">09:30</option>
                     <option value="10:00">10:00</option>
@@ -167,8 +164,8 @@
                     <option value="18:00">18:00</option>
                 </select>
 
-                <label for="end-time-0">    終了時間:</label>
-                <select name="end_time" id="end-time-0" value="18:00" required>
+                <label for="end-time-0">終了時間:</label>
+                <select name="end_time" id="end-time-0" required>
                     <option value="09:00">09:00</option>
                     <option value="09:30">09:30</option>
                     <option value="10:00">10:00</option>
