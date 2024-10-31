@@ -129,8 +129,6 @@
                     <span>{{ user }}</span>
                     &nbsp;|&nbsp; <!-- 区切り線 -->
                 {% endfor %}
-            {% else %}
-                <p>投稿されたNG時間はありません。</p>
             {% endif %}
         </div>
     </div>
@@ -149,7 +147,7 @@
                 </li>
             {% endfor %}
         {% else %}
-            <li>投稿されたデータがありません</li>
+            <li>投稿されたデータがありません。</li>
         {% endif %}
     </ul>
     <div class="delete-section">

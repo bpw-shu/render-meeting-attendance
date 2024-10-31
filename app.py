@@ -46,6 +46,16 @@ def findDate():
                 userData.append(usersFile[:-4])
 
     if request.method == 'POST':
+
+
+        # フォルダ内のファイルを取得
+        files = [f for f in os.listdir(folderPath) if os.path.isfile(os.path.join(folderPath, f))]
+
+        if files:
+            pass
+        else:
+            return render_template('findDate.html')
+
         filePath = os.path.join(base_dir, 'data.txt')
         # data.txtを全て読み込む
         ng_data = []
