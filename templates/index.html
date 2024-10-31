@@ -68,7 +68,7 @@
     <script>
         function addInputFields() {
             const newInputGroup = document.createElement("div");
-            newInputGroup.className = "input-group";
+            newInputGroup.className = "time-group";
 
             const dateInput = document.createElement("input");
             dateInput.type = "date";
@@ -79,10 +79,6 @@
             const dateLabel = document.createElement("label");
             dateLabel.innerText = "日付: ";
             dateLabel.htmlFor = dateInput.id = `date-${Date.now()}`;
-
-            // 時間を含むラッパーを作成
-            const timeGroup = document.createElement("div");
-            timeGroup.className = "time-group";
 
             const startTimeInput = document.createElement("input");
             startTimeInput.type = "time";
@@ -107,14 +103,12 @@
             endTimeLabel.htmlFor = endTimeInput.id = `end-time-${Date.now()}`;
 
             // ラッパーに要素を追加
-            timeGroup.appendChild(startTimeLabel);
-            timeGroup.appendChild(startTimeInput);
-            timeGroup.appendChild(endTimeLabel);
-            timeGroup.appendChild(endTimeInput);
-
             newInputGroup.appendChild(dateLabel);
             newInputGroup.appendChild(dateInput);
-            newInputGroup.appendChild(timeGroup);
+            newInputGroup.appendChild(startTimeLabel);
+            newInputGroup.appendChild(startTimeInput);
+            newInputGroup.appendChild(endTimeLabel);
+            newInputGroup.appendChild(endTimeInput);
 
             document.getElementById("input-fields").appendChild(newInputGroup);
         }
