@@ -33,7 +33,6 @@ def index():
 
 @app.route('/findDate', methods=['GET', 'POST'])
 def findDate():
-    # 投稿者を特定
     base_dir = os.path.abspath(os.path.dirname(__file__))
     folderPath = os.path.join(base_dir, 'usersDate')
     
@@ -46,48 +45,31 @@ def findDate():
                 userData.append(usersFile[:-4])
 
     if request.method == 'POST':
-
-
-        # フォルダ内のファイルを取得
-        files = [f for f in os.listdir(folderPath) if os.path.isfile(os.path.join(folderPath, f))]
-
-        if not files:
-            return render_template('findDate.html', userData=userData, error="ユーザーデータがありません。")
-
         filePath = os.path.join(base_dir, 'data.txt')
 
-        # data.txtを全て読み込む
-        ng_data = []
-        with open(filePath, 'r', encoding='utf-8') as base:
-            content = base.read()
-            ng_data.append(content)
+        if not os.path.exists(filePath):
+            return render_template('findDate.html', userData=userData, error="データファイルがありません。")
 
-        # NG時間の処理
         ng_times = []
-        for line in ng_data:
-            for entry in line.splitlines():
+        with open(filePath, 'r', encoding='utf-8') as base:
+            for entry in base:
                 parts = entry.split()
-                if len(parts) >= 3:  # 3つ以上の要素がある場合のみ処理
+                if len(parts) >= 3:
                     date, start_time, end_time = parts[0], parts[1], parts[2]
                     ng_times.append((datetime.strptime(f"{date} {start_time}", "%Y-%m-%d %H:%M"),
-                                    datetime.strptime(f"{date} {end_time}", "%Y-%m-%d %H:%M")))
+                                     datetime.strptime(f"{date} {end_time}", "%Y-%m-%d %H:%M")))
 
-        # 設定された期日をdatetimeに変換
         start = request.form.get('start')
         end = request.form.get('end')
         dt1 = datetime.strptime(start, "%Y-%m-%d")
         dt2 = datetime.strptime(end, "%Y-%m-%d")
 
-        # 時間を指定して新しいdatetimeオブジェクトを作成
         start_date = dt1.replace(hour=9, minute=0)
         end_date = dt2.replace(hour=18, minute=0)
 
-        # 利用可能な時間帯を保存するリスト
         available_ranges = []
-
-        # ng_times が空でない場合のみ算出を行う
-            # 現在の時間を設定
         current_time = start_date
+
         while current_time < end_date:
             if (current_time.hour >= 9 and current_time.hour < 12) or (current_time.hour > 12 and current_time.hour < 18):
                 if not any(start <= current_time < end for start, end in ng_times):
@@ -97,21 +79,18 @@ def findDate():
                         available_ranges[-1][1] = current_time
             current_time += timedelta(minutes=1)
 
-        # 時間帯をフォーマットして色を設定
         formatted_ranges = []
         for start, end in available_ranges:
             start_time = start
             end_time = end
-            duration = (end_time - start_time).seconds / 3600  # 時間に変換
-            color = 'red' if duration >= 1 else 'black'  # 色を決定
+            duration = (end_time - start_time).seconds / 3600
+            color = 'red' if duration >= 1 else 'black'
             formatted_ranges.append((start_time.strftime('%Y-%m/%d %H:%M'), end_time.strftime('%H:%M'), color))
-        else:
-            formatted_ranges = []  # ng_times が空の場合は空リストを設定
-
 
         return render_template('findDate.html', userData=userData, available_ranges=formatted_ranges)
 
     return render_template('findDate.html', userData=userData)
+
 
 @app.route('/deleteDate', methods=['POST'])
 def delete_all_user_data():
