@@ -53,8 +53,8 @@
         input[type="date"] {
             padding: 10px;
             margin: 5px;
-            width: 100%;
-            max-width: 150px; 
+            width: 70%;
+            max-width: 80px; 
             box-sizing: border-box;
         }
 
@@ -146,7 +146,6 @@
         {% endif %}
     </ul>
     <div class="delete-section">
-        <p>登録済みの時間帯を削除</p>
         <form method="POST" action="/deleteDate" onsubmit="return confirmDelete();">
             <button type="submit">登録済みデータ削除</button>
         </form>
