@@ -26,8 +26,10 @@
             white-space: nowrap; /* 改行を防ぐ */
         }
 
-        input[type="date"] {
-            width: 120px; /* 日付入力の幅を設定 */
+        input[type="date"], input[type="time"] {
+            width: 120px; /* 幅を揃える */
+            padding: 10px; /* 内側の余白を追加 */
+            box-sizing: border-box; /* ボックスサイズの計算にパディングを含める */
         }
 
         select {
