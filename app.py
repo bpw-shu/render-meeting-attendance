@@ -61,7 +61,7 @@ def findDate():
                 if len(parts) >= 3:  # 3つ以上の要素がある場合のみ処理
                     date, start_time, end_time = parts[0], parts[1], parts[2]
                     ng_times.append((datetime.strptime(f"{date} {start_time}", "%Y-%m-%d %H:%M"),
-                                     datetime.strptime(f"{date} {end_time}", "%Y-%m-%d %H:%M")))
+                                    datetime.strptime(f"{date} {end_time}", "%Y-%m-%d %H:%M")))
 
         # 設定された期日をdatetimeに変換
         start = request.form.get('start')
@@ -72,19 +72,22 @@ def findDate():
         # 時間を指定して新しいdatetimeオブジェクトを作成
         start_date = dt1.replace(hour=9, minute=0)
         end_date = dt2.replace(hour=18, minute=0)
+
         # 利用可能な時間帯を保存するリスト
         available_ranges = []
 
-        # 現在の時間を設定
-        current_time = start_date
-        while current_time < end_date:
-            if (current_time.hour >= 9 and current_time.hour < 12) or (current_time.hour > 12 and current_time.hour < 18):
-                if not any(start <= current_time < end for start, end in ng_times):
-                    if not available_ranges or available_ranges[-1][1] < current_time - timedelta(minutes=1):
-                        available_ranges.append([current_time, current_time])
-                    else:
-                        available_ranges[-1][1] = current_time
-            current_time += timedelta(minutes=1)
+        # ng_times が空でない場合のみ算出を行う
+        if ng_times:
+            # 現在の時間を設定
+            current_time = start_date
+            while current_time < end_date:
+                if (current_time.hour >= 9 and current_time.hour < 12) or (current_time.hour > 12 and current_time.hour < 18):
+                    if not any(start <= current_time < end for start, end in ng_times):
+                        if not available_ranges or available_ranges[-1][1] < current_time - timedelta(minutes=1):
+                            available_ranges.append([current_time, current_time])
+                        else:
+                            available_ranges[-1][1] = current_time
+                current_time += timedelta(minutes=1)
 
         # 時間帯をフォーマットして色を設定
         formatted_ranges = []
@@ -94,6 +97,9 @@ def findDate():
             duration = (end_time - start_time).seconds / 3600  # 時間に変換
             color = 'red' if duration >= 1 else 'black'  # 色を決定
             formatted_ranges.append((start_time.strftime('%Y-%m/%d %H:%M'), end_time.strftime('%H:%M'), color))
+        else:
+            formatted_ranges = []  # ng_times が空の場合は空リストを設定
+
 
         return render_template('findDate.html', userData=userData, available_ranges=formatted_ranges)
 
