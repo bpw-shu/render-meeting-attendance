@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Ranges</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            padding-left: 100%; 
+            animation: marquee 15s linear infinite; 
+        }
+
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
+        form {
+            display: flex;
+            flex-direction: row; 
+            justify-content: center; 
+            margin-bottom: 20px;
+            align-items: center; 
+        }
+
+        label {
+            margin: 10px 5px 5px;
+            display: flex; 
+            align-items: center; 
+        }
+
+        input[type="date"] {
+            padding: 10px;
+            margin: 5px;
+            width: 100%;
+            max-width: 150px; 
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 0; 
+            cursor: pointer;
+            height: 40px; 
+        }
+
+        ul {
+            list-style-type: none; 
+            padding: 0; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+
+        li {
+            background: white;
+            padding: 10px;
+            margin: 5px 0; 
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: blue;
+        }
+
+        
+        @media (max-width: 600px) {
+            form {
+                flex-direction: row; 
+                align-items: center; 
+                flex-wrap: wrap; 
+            }
+
+            input[type="date"] {
+                max-width: 120px; 
+            }
+
+            button {
+                width: auto; 
+                margin-left: 10px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>時間帯の算出</h1>
+    <div class="marquee">
+        <div class="marquee-content">
+            NG時間投稿済み:{% for user in userData %}
+                <span>{{ user }}</span>
+                &nbsp;|&nbsp; <!-- 区切り線 -->
+            {% endfor %}
+        </div>
+    </div>
+    <form method="POST">
+        <label for="start">設定期日</label>
+        <input type="date" name="start" id="start" required>
+        <label for="end">～</label>
+        <input type="date" name="end" id="end" required>
+        <button type="submit">算出</button>
+    </form>
+    <ul>
+        {% if available_ranges %}
+            {% for start, end, color in available_ranges %}
+                <li style="color: {{ color }};">
+                    {{ start }} ～ {{ end }}
+                </li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+    <a href="/">戻る</a>
+</body>
+</html>
